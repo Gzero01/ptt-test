@@ -36,7 +36,7 @@ const Tree = () => {
     dangerouslySetInnerHTML={createMarkup()}
     style={{textAlign:"center"}}
     ></div>
-    <Link to="/test" style={{display:"flex",justifyContent:"center",
+    <Link to="/fruit" style={{display:"flex",justifyContent:"center",
       textDecoration:"none",}}>
     <div 
     style={{

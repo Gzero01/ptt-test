@@ -1,6 +1,6 @@
 import React from "react";
 import Tree from "./component/Tree";
-import Test from "./component/Test";
+import Fruit from "./component/Fruit";
 
 import { Router, Route, BrowserRouter, Routes } from "react-router-dom";
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Tree />} />
-      <Route path="/test" element={<Test />} />
+      <Route path="/fruit" element={<Fruit />} />
     </Routes>
      
     </BrowserRouter>

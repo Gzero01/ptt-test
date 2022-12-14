@@ -10,7 +10,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const fs = require("fs");
 const PORT = 4000;
-let picture = require("../server/models/picture.model");
+const Picture = require("../server/models/picture.model");
 
 const mock = [
   {
@@ -29,27 +29,19 @@ const mock = [
 
 dotenv.config();
 mongoose.connect(process.env.ATLAS_URI, () =>
-  console.log("MongoDB is Ready To Rock and Roll")
+  console.log("MongoDB is Ready")
 );
-
-// router.route("/test").get(async (req, res) => {
-//   const picture = await picture.find().lean().exec();
-//   const output = {
-//     picture:picture,
-// }
-// res.send(200, output)
-// })
-
-app.get('/test', async (req, res) => {
-  const output = mock;
-  res.send(200, output);
-  console.log("output",output)
-  console.log("picture",picture)
-
-});
 
 app.use(express.json()); //bodypasser
 app.use(cors());
+
+app.get('/fruit', async (req, res) => {
+
+  const pictureData = await Picture.find({},{_id:0}).lean().exec();
+  res.send(200, pictureData);
+  // console.log("picture",pictureData)
+
+});
 
 app.listen(PORT, () => {
     console.log(`Here we go agian on Port:${PORT}`);
