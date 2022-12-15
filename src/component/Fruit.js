@@ -13,6 +13,7 @@ const Fruit = () => {
   const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [imageAllData, setImageAllData] = React.useState(initialState);
   const [fruitName, setFruitName] = React.useState("");
+  const [clickSendImage, setClickSendImage] = React.useState("")
   const [imageName, setImageName] = React.useState("");
   const [imageURLs, setImageURLs] = React.useState([]);
 
@@ -21,7 +22,7 @@ const Fruit = () => {
       setFruitData(res.data);
       setFruitFilter(res.data);
     });
-  }, []);
+  }, [clickSendImage]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -32,7 +33,7 @@ const Fruit = () => {
 
   const onNameChange = (event) => {
     setFruitName(event.target.value);
-    console.log("fruitName",fruitName)
+    console.log("fruitName", fruitName);
   };
 
   const onImageChange = (event) => {
@@ -42,23 +43,24 @@ const Fruit = () => {
 
     const { files } = event.target;
     handleImage([...files]);
-    // console.log("setLogoName", event.target.files[0])
   };
 
   const handleImage = (files) => {
     setImageAllData({ ...imageAllData, name: fruitName, image: files[0] });
-    // setLogoName({ ...logoName, logoTime: format(new Date(),"ddmmyyyy_hhmmssss")
   };
 
   const sendImage = async (event) => {
+    setClickSendImage("Clicked Image")
     let formdata = new FormData();
     formdata.append("name", imageAllData.name);
     formdata.append("image", imageAllData.image);
 
     const result = await axios.post("http://localhost:4000/fruit", formdata);
     if (result.data.status === "ok") {
-      alert("New Logo is ready to use");
+      alert("New Fruit image is ready");
+    setClickSendImage("")
     }
+    setIsOpenModal(false)
   };
 
   console.log("image", imageAllData);
@@ -91,20 +93,20 @@ const Fruit = () => {
             onChange={(e) => handleChange(e)}
           />
         </div>
-        <table style={{ width: "100%" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr>
-              <th style={{ width: "150px" }}>ผลไม้</th>
-              <th style={{ width: "250px" }}>รูป</th>
+              <th>ผลไม้</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {fruitFilter.map((data, i) => {
               return (
-                <tr key={i} style={{ textAlign: "center" }}>
+                <tr key={i} style={{ verticalAlign: "top" }}>
                   <td>{data.name}</td>
                   <td>
-                    <img src={data.image} width="200px" />
+                    <img src={data.image} width="auto" height="150px" />
                   </td>
                 </tr>
               );
@@ -124,6 +126,7 @@ const Fruit = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            minHeight: "100vh",
           }}
           // onClick={() => setIsOpenModal(false)}
         >
@@ -131,19 +134,43 @@ const Fruit = () => {
             style={{
               background: "white",
               width: "80%",
-              marginTop: "40%",
+              marginTop: "150px",
               padding: "10px",
             }}
           >
             <h2>Create</h2>
-            <div style={{ fontWeight: "bold", textAlign: "center" }}>
-              <div style={{ margin: "10px" }}>
+            <div style={{ fontWeight: "bold" }}>
+              <div style={{ padding: "5px 0 5px 300px" }}>
                 Name : <input type="text" onChange={onNameChange} />
               </div>
-              <div>
-                Photo : <input type="file" onChange={onImageChange} />
+              <div style={{ padding: "5px 0 5px 300px" ,display:"flex" }}>
+                Photo :
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  id="inputImage"
+                  name="Image"
+                  accept="image/*"
+                  onChange={onImageChange}
+                  hidden
+                />
+                <label
+                  class="custom-file-label"
+                  for="inputImage"
+               style={{
+                border:"1px solid rgb(110 110 110)",
+                width:"164px",
+                height:"20px",
+               marginLeft:"4px",
+               fontWeight:"400",
+             fontSize:"14px",
+             paddingLeft:"4px"
+               }}
+                >
+                  {imageName}
+                </label>
               </div>
-              <div style={{ margin: "10px" }}>
+              <div style={{ margin: "10px", textAlign: "center" }}>
                 <button
                   style={{
                     background: "#2196f3",
