@@ -13,7 +13,7 @@ const Fruit = () => {
   const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [imageAllData, setImageAllData] = React.useState(initialState);
   const [fruitName, setFruitName] = React.useState("");
-  const [clickSendImage, setClickSendImage] = React.useState("")
+  const [clickSendImage, setClickSendImage] = React.useState("");
   const [imageName, setImageName] = React.useState("");
   const [imageURLs, setImageURLs] = React.useState([]);
 
@@ -50,7 +50,7 @@ const Fruit = () => {
   };
 
   const sendImage = async (event) => {
-    setClickSendImage("Clicked Image")
+    setClickSendImage("Clicked Image");
     let formdata = new FormData();
     formdata.append("name", imageAllData.name);
     formdata.append("image", imageAllData.image);
@@ -58,9 +58,9 @@ const Fruit = () => {
     const result = await axios.post("http://localhost:4000/fruit", formdata);
     if (result.data.status === "ok") {
       alert("New Fruit image is ready");
-    setClickSendImage("")
+      setClickSendImage("");
     }
-    setIsOpenModal(false)
+    setIsOpenModal(false);
   };
 
   console.log("image", imageAllData);
@@ -81,6 +81,7 @@ const Fruit = () => {
                 height: "30px",
                 borderRadius: "5px",
                 color: "white",
+                cursor: "pointer",
               }}
               onClick={() => setIsOpenModal(true)}
             >
@@ -140,10 +141,16 @@ const Fruit = () => {
           >
             <h2>Create</h2>
             <div style={{ fontWeight: "bold" }}>
-              <div style={{ padding: "5px 0 5px 300px" }}>
+              <div style={{ textAlign: "center", padding: "5px" }}>
                 Name : <input type="text" onChange={onNameChange} />
               </div>
-              <div style={{ padding: "5px 0 5px 300px" ,display:"flex" }}>
+              <div
+                style={{
+                  justifyContent: "center",
+                  display: "flex",
+                  padding: "5px",
+                }}
+              >
                 Photo :
                 <input
                   type="file"
@@ -157,15 +164,16 @@ const Fruit = () => {
                 <label
                   class="custom-file-label"
                   for="inputImage"
-               style={{
-                border:"1px solid rgb(110 110 110)",
-                width:"164px",
-                height:"20px",
-               marginLeft:"4px",
-               fontWeight:"400",
-             fontSize:"14px",
-             paddingLeft:"4px"
-               }}
+                  style={{
+                    border: "1px solid rgb(110 110 110)",
+                    width: "164px",
+                    height: "20px",
+                    marginLeft: "4px",
+                    fontWeight: "400",
+                    fontSize: "14px",
+                    paddingLeft: "4px",
+                    cursor: "pointer",
+                  }}
                 >
                   {imageName}
                 </label>
@@ -180,6 +188,7 @@ const Fruit = () => {
                     borderRadius: "5px",
                     color: "white",
                     marginRight: "5px",
+                    cursor: "pointer",
                   }}
                   type="submit"
                   onClick={sendImage}
@@ -194,6 +203,7 @@ const Fruit = () => {
                     height: "30px",
                     borderRadius: "5px",
                     color: "black",
+                    cursor: "pointer",
                   }}
                   onClick={() => setIsOpenModal(false)}
                 >
