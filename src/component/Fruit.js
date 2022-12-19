@@ -1,6 +1,7 @@
 import React from "react";
 import "./Fruit.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Fruit = () => {
   const initialState = {
@@ -68,8 +69,31 @@ const Fruit = () => {
   return (
     <>
       <div className="container">
-        <div>
+        <div style={{ display: "flex" }}>
           <h1>ผลไม้</h1>
+          <Link
+            to="/"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textDecoration: "none",
+            }}
+          >
+            <div
+              style={{
+                padding: "10px",
+                margin: "20px",
+                background: "#4caf50",
+                width: "100px",
+                textAlign: "center",
+                color: "white",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+            >
+              Tree
+            </div>
+          </Link>
         </div>
         <div style={{ textAlign: "end", margin: "10px" }}>
           <div style={{ marginBottom: "10px" }}>
