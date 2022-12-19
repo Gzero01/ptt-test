@@ -1,6 +1,10 @@
 .container {
-    padding: 40px 100px;
+    margin: 40px auto;
     position: relative;
+    width: 1000px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 

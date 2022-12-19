@@ -18,7 +18,7 @@ const Fruit = () => {
   const [imageURLs, setImageURLs] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get("http://localhost:4000/fruit").then((res) => {
+    axios.get("http://localhost:4000/item/getitem").then((res) => {
       setFruitData(res.data);
       setFruitFilter(res.data);
     });
@@ -50,16 +50,14 @@ const Fruit = () => {
   };
 
   const sendImage = async (event) => {
+    event.preventDefault();
     setClickSendImage("Clicked Image");
     let formdata = new FormData();
     formdata.append("name", imageAllData.name);
     formdata.append("image", imageAllData.image);
 
-    const result = await axios.post("http://localhost:4000/fruit", formdata);
-    if (result.data.status === "ok") {
-      alert("New Fruit image is ready");
-      setClickSendImage("");
-    }
+  await axios.post("http://localhost:4000/item/additem", formdata);
+    setClickSendImage("");
     setIsOpenModal(false);
   };
 
@@ -154,15 +152,14 @@ const Fruit = () => {
                 Photo :
                 <input
                   type="file"
-                  class="custom-file-input"
+                  className="custom-file-input"
                   id="inputImage"
-                  name="Image"
-                  accept="image/*"
+                  name="Picture"
                   onChange={onImageChange}
                   hidden
                 />
                 <label
-                  class="custom-file-label"
+                  className="custom-file-label"
                   for="inputImage"
                   style={{
                     border: "1px solid rgb(110 110 110)",
